@@ -12,6 +12,6 @@
     <title>helloWorld</title>
 </head>
 <body>
-    <h1>< c:out value="${str}" /%></h1>
+
 </body>
 </html>

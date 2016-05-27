@@ -5,7 +5,5 @@
 <configuration>
 
     <!-- mapping 文件路径配置 -->
-    <mappers>
-        <mapper resource="com/yu/res/UserMapper.xml" />
-    </mappers>
+
 </configuration>

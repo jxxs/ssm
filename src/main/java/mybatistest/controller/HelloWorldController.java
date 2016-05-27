@@ -1,8 +1,10 @@
 package mybatistest.controller;
 
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("test")
-class HelloWorldController {
+public class HelloWorldController {
 
     @RequestMapping("helloWorld")
     public String helloWorld(){
