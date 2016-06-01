@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "test")
 public class HelloWorldController {
 
-    public HelloWorldController(){
-        System.out.println("加载HelloWorldController。。。。。。。。。。。。。。。。。。。。。");
-    }
     @RequestMapping(value = "helloWorld")
     public String helloWorld(Model model){
         model.addAttribute("msg","Hello World!");

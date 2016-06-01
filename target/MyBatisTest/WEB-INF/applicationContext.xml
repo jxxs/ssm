@@ -6,7 +6,7 @@
 
 
 
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:property-placeholder location="classpath:jdbc.properties,classpath:system-config.properties"/>
 
 
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
@@ -26,6 +26,14 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:mybatis-config.xml" />
         <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="httpUtils" class="mybatistest.utils.HttpUtils" scope="singleton">
+        <constructor-arg name="proxyEnable" value="${proxy_enable}"/>
+        <constructor-arg name="proxyHost" value="${proxy_host}"/>
+        <constructor-arg name="proxyPort" value="${proxy_port}"/>
+        <constructor-arg name="proxyUser" value="${proxy_user}"/>
+        <constructor-arg name="proxyPwd" value="${proxy_pwd}"/>
     </bean>
 
 

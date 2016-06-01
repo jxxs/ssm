@@ -3,12 +3,14 @@ package mybatistest.utils;
 
 
 
+import mybatistest.dao.WxMaterialImgMapper;
+import mybatistest.service.IWxMaterialImgService;
+import mybatistest.service.WxMaterialImgServiceImpl;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -23,7 +25,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLException;
@@ -71,7 +73,7 @@ public class HttpUtils {
             credsProvider.setCredentials(new AuthScope(proxyHost, proxyPort),//认证范围
                     new UsernamePasswordCredentials(proxyUser, proxyPwd));//用户名和密码
             this.httpClient = HttpClients.custom()
-                    .setSSLSocketFactory(createSSLConnSocketFactory())
+//                    .setSSLSocketFactory(createSSLConnSocketFactory())
                     .setDefaultCredentialsProvider(credsProvider)
                     .setDefaultRequestConfig(requestConfig).build();
         }else{
@@ -122,50 +124,52 @@ public class HttpUtils {
         return result;
     }
 
-    private SSLConnectionSocketFactory createSSLConnSocketFactory() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
-        SSLConnectionSocketFactory sslsf = null;
-        try {
-            SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() {
-
-                public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                    return true;
-                }
-            }).build();
-            sslsf = new SSLConnectionSocketFactory(sslContext, new X509HostnameVerifier() {
-
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-
-                @Override
-                public void verify(String host, SSLSocket ssl) throws IOException {
-                }
-
-                @Override
-                public void verify(String host, X509Certificate cert) throws SSLException {
-                }
-
-                @Override
-                public void verify(String host, String[] cns, String[] subjectAlts) throws SSLException {
-                }
-            });
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        }
-        return sslsf;
-    }
+//    private SSLConnectionSocketFactory createSSLConnSocketFactory() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+//        SSLConnectionSocketFactory sslsf = null;
+//        try {
+//            SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() {
+//
+//                public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+//                    return true;
+//                }
+//            }).build();
+//            sslsf = new SSLConnectionSocketFactory(sslContext, new X509HostnameVerifier() {
+//
+//                @Override
+//                public boolean verify(String arg0, SSLSession arg1) {
+//                    return true;
+//                }
+//
+//                @Override
+//                public void verify(String host, SSLSocket ssl) throws IOException {
+//                }
+//
+//                @Override
+//                public void verify(String host, X509Certificate cert) throws SSLException {
+//                }
+//
+//                @Override
+//                public void verify(String host, String[] cns, String[] subjectAlts) throws SSLException {
+//                }
+//            });
+//        } catch (GeneralSecurityException e) {
+//            e.printStackTrace();
+//        }
+//        return sslsf;
+//    }
 
 
 
     public static void main(String[] args) throws Exception {
-        ApplicationContext context = new FileSystemXmlApplicationContext("D:/GitHub/MyBatisTest/src/main/webapp/WEB-INF/applicationContext.xml");
-        HttpUtils httpUtils = (HttpUtils) context.getBean("httpUtils");
-        String s = httpUtils.post(
-                "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=sSUJ-DnCGO3j5py5yiKl90RNF6pVzHj3NRzd5N3rSzhnUOsVu00C-w-EM_FrVYIQPD2hN4y8xUBtcP-lEW_57thL99vMv1CtUnFYNPMH7_DJ3y-94BwrIVxYl-JIYCuZMABjAAAGUV"
-        ,"{\"type\":\"image\",\"offset\":0,\"count\":50}");
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+//        HttpUtils httpUtils = (HttpUtils) context.getBean("httpUtils");
+//        String s = httpUtils.post(
+//                "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=8OyyymunlFzCciOp1IbYmalPYD_Oyr3u_cDwxSjQ8DRanifaTegnZ4-zquQ65Gx6DTYtPDcxfT7mfcWs5sm95FVKoJJU14a08TPiZm97gVhxPlHz4v7VprnZwdgvbYcIZFEhABAEKJ"
+//        ,"{\"type\":\"image\",\"offset\":0,\"count\":50}");
 //        String s = httpUtils.get("https://api.weixin.qq.com/cgi-bin/user/get?access_token=sSUJ-DnCGO3j5py5yiKl90RNF6pVzHj3NRzd5N3rSzhnUOsVu00C-w-EM_FrVYIQPD2hN4y8xUBtcP-lEW_57thL99vMv1CtUnFYNPMH7_DJ3y-94BwrIVxYl-JIYCuZMABjAAAGUV&next_openid=");
-        System.out.println(s);
+        IWxMaterialImgService service = context.getBean(WxMaterialImgServiceImpl.class);
+//        WxMaterialImgMapper dao = context.getBean(WxMaterialImgMapper.class);
+        System.out.println(service.selectByPrimaryKey("obEwhAMbIZHNzrkdrNqplaFpnAUd2u7xawFhpxqJE4k").getName());
     }
 
 

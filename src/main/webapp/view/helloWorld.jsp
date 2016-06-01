@@ -12,6 +12,6 @@
     <title>helloWorld</title>
 </head>
 <body>
-<h2>${msg}</h2>
+<h2 style="color: chartreuse">${msg}</h2>
 </body>
 </html>

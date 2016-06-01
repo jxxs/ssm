@@ -5,5 +5,8 @@
 <configuration>
 
     <!-- mapping 文件路径配置 -->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
 
 </configuration>

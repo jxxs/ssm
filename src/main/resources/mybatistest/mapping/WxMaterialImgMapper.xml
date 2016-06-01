@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mybatistest.dao.WxMaterialImgMapper" >
+  <sql id="Base_Column_List" >
+    media_id, guid, name, update_time, url, path
+  </sql>
+  <resultMap id="BaseResultMap" type="mybatistest.model.WxMaterialImg" >
+    <id column="media_id" property="mediaId" jdbcType="VARCHAR" />
+    <result column="guid" property="guid" jdbcType="DECIMAL" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wx_material_img
+    where media_id = #{mediaId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wx_material_img
+    where media_id = #{mediaId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="mybatistest.model.WxMaterialImg" >
+    insert into wx_material_img (media_id, guid, name, 
+      update_time, url, path
+      )
+    values (#{mediaId,jdbcType=VARCHAR}, #{guid,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="mybatistest.model.WxMaterialImg" >
+    insert into wx_material_img
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mediaId != null" >
+        media_id,
+      </if>
+      <if test="guid != null" >
+        guid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mediaId != null" >
+        #{mediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="guid != null" >
+        #{guid,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mybatistest.model.WxMaterialImg" >
+    update wx_material_img
+    <set >
+      <if test="guid != null" >
+        guid = #{guid,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where media_id = #{mediaId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mybatistest.model.WxMaterialImg" >
+    update wx_material_img
+    set guid = #{guid,jdbcType=DECIMAL},
+      name = #{name,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR}
+    where media_id = #{mediaId,jdbcType=VARCHAR}
+  </update>
+</mapper>
